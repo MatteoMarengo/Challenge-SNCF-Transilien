@@ -18,3 +18,4 @@ print(data.isnull().sum())
 num_stations = len(data.iloc[:, 1].unique())
 print("Number of different stations:", num_stations)
 
+
