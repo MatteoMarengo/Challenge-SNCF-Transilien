@@ -93,35 +93,36 @@ print(f'MAPE (excluding zero values): {mape_non_zero}%')
 print(f'MAPE: {mape}%')
 
 
-# create a y_test_csv file
-y_test_submit = model.predict(X_test_submit_IDS_ARRAY)
-print(y_test_submit[:5])
-result_df = pd.DataFrame({'data_station': data_station_array, 'y_test_submit': y_test_submit})
-print(result_df.head())
-result_df.rename(columns={'data_station': 'index', 'y_test_submit': 'y'}, inplace=True)
-result_df.to_csv('y_test_sncf.csv', index=False)
+# # create a y_test_csv file
+# y_test_submit = model.predict(X_test_submit_IDS_ARRAY)
+# print(y_test_submit[:5])
+# result_df = pd.DataFrame({'data_station': data_station_array, 'y_test_submit': y_test_submit})
+# print(result_df.head())
+# result_df.rename(columns={'data_station': 'index', 'y_test_submit': 'y'}, inplace=True)
+# result_df.to_csv('y_test_sncf.csv', index=False)
 
 
-############################################
-from sklearn.svm import SVR
+# ############################################
+# from sklearn.svm import SVR
 
-# Train the SVM regression model with the new data
-svm_model = SVR()
-svm_model.fit(X_train, y_train)
+# # Train the SVM regression model with the new data
+# svm_model = SVR(kernel='rbf', C=100, gamma=0.1, epsilon=.1)
+# svm_model.fit(X_train, y_train)
 
-# Predict on the training data
-y_pred_svm = svm_model.predict(X_test)
-print(y_pred_svm.shape)
-print(y_test.shape)
+# # Predict on the training data
+# y_pred_svm = svm_model.predict(X_test)
+# print(y_pred_svm.shape)
+# print(y_test.shape)
 
-# Evaluate the model
-epsilon = 1  # Small epsilon value to avoid division by zero
-mape_svm = np.mean(np.abs((y_test - y_pred_svm) / (y_test + epsilon))) * 100
+# # Evaluate the model
+# epsilon = 1  # Small epsilon value to avoid division by zero
+# mape_svm = np.mean(np.abs((y_test - y_pred_svm) / (y_test + epsilon))) * 100
 
-# Calculate MAPE excluding zero values in y_test
-non_zero_indices_svm = np.nonzero(y_test)
-mape_non_zero_svm = np.mean(np.abs((y_test[non_zero_indices_svm] - y_pred_svm[non_zero_indices_svm]) / (y_test[non_zero_indices_svm] + epsilon))) * 100
+# # Calculate MAPE excluding zero values in y_test
+# non_zero_indices_svm = np.nonzero(y_test)
+# mape_non_zero_svm = np.mean(np.abs((y_test[non_zero_indices_svm] - y_pred_svm[non_zero_indices_svm]) / (y_test[non_zero_indices_svm] + epsilon))) * 100
 
-print(f'MAPE (excluding zero values) for SVM: {mape_non_zero_svm}%')
-print(f'MAPE for SVM: {mape_svm}%')
+# print(f'MAPE (excluding zero values) for SVM: {mape_non_zero_svm}%')
+# print(f'MAPE for SVM: {mape_svm}%')
+
 
