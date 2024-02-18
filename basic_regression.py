@@ -13,13 +13,23 @@ y_train = pd.read_csv('y_train_sncf.csv')
 
 # Preprocess the data
 # For example, parse the dates and convert them to a numerical value, such as the number of days since a certain date
+# x_train = x_train.sort_values('date')
+# Convert the 'date' column to datetime
 x_train['date'] = pd.to_datetime(x_train['date'])
+
+# Create a new column with the numerical day of the year
+x_train['day_of_year'] = x_train['date'].dt.dayofyear
+
+# x_train['date'] = pd.to_datetime(x_train['date'])
 x_train['days_since'] = (x_train['date'] - x_train['date'].min()).dt.days
+# x_train['day_in_year'] = x_train['date'].dt.dayofyear
 X_station = x_train['station']
 station_mapping = {station: i for i, station in enumerate(X_station.unique())}
 x_train['station_id'] = x_train['station'].map(station_mapping)
-X_train_IDS= x_train[['days_since','station_id', 'job', 'ferie', 'vacances']]
+X_train_IDS= x_train[['day_of_year','station_id', 'job', 'ferie', 'vacances']]
 X_train_IDS_ARRAY = X_train_IDS.to_numpy()
+print(X_train_IDS.iloc[1500:1505])
+
 
 Y_IDS = y_train['y']
 Y_IDS_ARRAY = Y_IDS.to_numpy()
@@ -72,7 +82,7 @@ print(f'MAPE: {mape}%')
 from sklearn.ensemble import RandomForestRegressor
 
 # Train the random forest regression model with the new data
-model = RandomForestRegressor(n_estimators=40)
+model = RandomForestRegressor(n_estimators=5)
 model.fit(X_train, y_train)
 
 # Predict on the training data
