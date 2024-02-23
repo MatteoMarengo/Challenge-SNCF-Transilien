@@ -4,6 +4,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 import numpy as np
 
+############################################
 # Load the data
 x_train = pd.read_csv('x_train_sncf.csv')
 x_train = pd.read_csv('train_f_x.csv')
