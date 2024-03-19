@@ -12,7 +12,6 @@ y_train = pd.read_csv('y_train_sncf.csv')
 ############################################
 
 # Preprocess the data
-# For example, parse the dates and convert them to a numerical value, such as the number of days since a certain date
 x_train['date'] = pd.to_datetime(x_train['date'])
 x_train['days_since'] = (x_train['date'] - x_train['date'].min()).dt.days
 X_station = x_train['station']
